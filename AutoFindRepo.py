@@ -26,11 +26,11 @@ options = Options()
 browser = webdriver.Chrome(
     ChromeDriverManager().install(), chrome_options=options)
  
-domain = "android"
-browser.get("https://github.com/topics/"+domain)
+domain = "ios"
+browser.get("https://github.com/topics/"+domain+"?o=desc&s=updated")
  
 
-for page in range(1, 3):  # 執行1~2頁
+for page in range(1, 10):  # 執行1~2頁
 
     page_next = browser.find_element_by_xpath('//button[@class="ajax-pagination-btn btn btn-outline color-border-default f6 mt-0 width-full"]')
     page_next.click()  # 點擊下一頁按鈕
@@ -147,34 +147,34 @@ for i in range(len(urls)):
         # minor_count_avg
         print('AVG Minor Contributors Count per file: {}'.format(minor_count_avg))
 
-        #8.7 Lines count
-        metric = LinesCount(path_to_repo= project_path,
-                                        from_commit= first_commit_hash,
-                                        to_commit= last_commit_hash)
+#         #8.7 Lines count
+#         metric = LinesCount(path_to_repo= project_path,
+#                                         from_commit= first_commit_hash,
+#                                         to_commit= last_commit_hash)
 
-        added_count = metric.count_added()
-        added_max = metric.max_added()
-        added_avg = metric.avg_added()
+#         added_count = metric.count_added()
+#         added_max = metric.max_added()
+#         added_avg = metric.avg_added()
 
-        print('8.7---------')
-        total_lines_add = sum(added_count.values())
-        max_lines_add = sum(added_max.values())
-        avg_lines_add = sum(added_avg.values())
-        print('Total lines added: ', total_lines_add)
-        print('Maximum lines added: ', max_lines_add)
-        print('Average lines added: ', avg_lines_add)
+#         print('8.7---------')
+#         total_lines_add = sum(added_count.values())
+#         max_lines_add = sum(added_max.values())
+#         avg_lines_add = sum(added_avg.values())
+#         print('Total lines added: ', total_lines_add)
+#         print('Maximum lines added: ', max_lines_add)
+#         print('Average lines added: ', avg_lines_add)
 
-        removed_count = metric.count_removed()
-        removed_max = metric.max_removed()
-        removed_avg = metric.avg_removed()
+#         removed_count = metric.count_removed()
+#         removed_max = metric.max_removed()
+#         removed_avg = metric.avg_removed()
         
-        total_lines_rmv = sum(removed_count.values())
-        max_lines_rmv = sum(removed_max.values())
-        avg_lines_rmv = sum(removed_avg.values())
+#         total_lines_rmv = sum(removed_count.values())
+#         max_lines_rmv = sum(removed_max.values())
+#         avg_lines_rmv = sum(removed_avg.values())
 
-        print('Total lines removed:', total_lines_rmv)
-        print('Maximum lines removed:', max_lines_rmv)
-        print('Average lines removed:', avg_lines_rmv)
+#         print('Total lines removed:', total_lines_rmv)
+#         print('Maximum lines removed:', max_lines_rmv)
+#         print('Average lines removed:', avg_lines_rmv)
 
 #         #8.5 Contibutors Experiences
 #         metric = ContributorsExperience(path_to_repo=project_path,
@@ -193,7 +193,7 @@ for i in range(len(urls)):
         with open('beautifulsoup.csv', 'a+', newline='',encoding='utf-8-sig') as csvfile:
         # 建立 CSV 檔寫入器
             writer = csv.writer(csvfile)
-            writer.writerow([timeurls[i], title1, stars, lang, domain, commits_count_total, commits_count_max, commits_count_avg, norm_count_max, minor_count_max, norm_count_avg, minor_count_avg, total_lines_add, max_lines_add, avg_lines_add, total_lines_rmv, max_lines_rmv, avg_lines_rmv])
+            writer.writerow([timeurls[i], title1, stars, lang, domain, commits_count_total, commits_count_max, commits_count_avg, norm_count_max, minor_count_max, norm_count_avg, minor_count_avg])
             
     else:
         continue
