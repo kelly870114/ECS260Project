@@ -30,22 +30,22 @@ domain = "ios"
 browser.get("https://github.com/topics/"+domain+"?o=desc&s=updated")
  
 
-for page in range(1, 10):  # 執行1~2頁
+for page in range(1, 10):  # Find from 1~10 pages
 
     page_next = browser.find_element_by_xpath('//button[@class="ajax-pagination-btn btn btn-outline color-border-default f6 mt-0 width-full"]')
-    page_next.click()  # 點擊下一頁按鈕
+    page_next.click()  # click "Load More"
  
-    time.sleep(5)  # 暫停10秒
+    time.sleep(5)  # sleep for 5 secs and keep clicking
     
 soup = BeautifulSoup(browser.page_source, "html.parser")
  
-# 取得所有class為pull-left infoContent的<li>標籤
+# Get all the elements with <a> and class "text-bold wb-break-word"
 elements = soup.find_all("a", {"class": "text-bold wb-break-word"})
 urls = []
 timeurls = []
 #print(f"==========第{str(page)}頁==========")
 for element in elements:
-    # 取得<li>標籤下的<h3>標籤，再取得<h3>標籤下的<a>標籤文字，並且去掉空白
+    # Get elements from <a> with href label
     title = element.get('href')
     timeurls.append("https://api.github.com/repos%s"%title)
     urls.append("https://github.com%s"%title)
@@ -189,9 +189,9 @@ for i in range(len(urls)):
 #         print()
     
         print()
-        # 開啟輸出的 CSV 檔案
+        # Open CSV
         with open('beautifulsoup.csv', 'a+', newline='',encoding='utf-8-sig') as csvfile:
-        # 建立 CSV 檔寫入器
+        # Write to CSV
             writer = csv.writer(csvfile)
             writer.writerow([timeurls[i], title1, stars, lang, domain, commits_count_total, commits_count_max, commits_count_avg, norm_count_max, minor_count_max, norm_count_avg, minor_count_avg])
             
